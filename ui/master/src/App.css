@@ -1,0 +1,96 @@
+.page-shell {
+  min-height: 100vh;
+  padding: 48px 20px 72px;
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at top left, rgba(20, 71, 230, 0.18), transparent 32%),
+    radial-gradient(circle at bottom right, rgba(11, 163, 96, 0.2), transparent 28%),
+    linear-gradient(135deg, #f7f9fc 0%, #eef4ff 50%, #fefbf2 100%);
+}
+
+.page-glow {
+  position: absolute;
+  width: 360px;
+  height: 360px;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.page-glow-left {
+  top: -120px;
+  left: -80px;
+  background: rgba(20, 71, 230, 0.22);
+}
+
+.page-glow-right {
+  right: -120px;
+  bottom: -120px;
+  background: rgba(11, 163, 96, 0.22);
+}
+
+.hero-card,
+.table-card {
+  position: relative;
+  z-index: 1;
+  border-radius: 28px;
+  box-shadow: 0 20px 60px rgba(34, 62, 110, 0.12);
+}
+
+.hero-card {
+  margin-bottom: 24px;
+}
+
+.hero-copy {
+  margin-bottom: 24px;
+}
+
+.eyebrow {
+  display: inline-block;
+  margin-bottom: 10px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: #dbe7ff;
+  color: #1447e6;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.hero-title.ant-typography {
+  margin-bottom: 8px;
+  color: #13203b;
+}
+
+.hero-text.ant-typography {
+  max-width: 640px;
+  margin-bottom: 0;
+  color: #53627c;
+  font-size: 16px;
+}
+
+.price-input {
+  width: 100%;
+}
+
+.ant-table-wrapper .ant-table {
+  border-radius: 18px;
+}
+
+.ant-table-thead > tr > th {
+  background: #f4f7ff !important;
+  color: #20304d !important;
+  font-weight: 700;
+}
+
+.ant-btn-primary {
+  box-shadow: 0 10px 24px rgba(20, 71, 230, 0.24);
+}
+
+@media (max-width: 768px) {
+  .page-shell {
+    padding: 24px 12px 40px;
+  }
+}
