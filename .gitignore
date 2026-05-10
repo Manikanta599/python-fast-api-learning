@@ -1,6 +1,9 @@
 # Environment variables / secrets
 .env
 
+# Node dependencies
+node_modules/
+
 # Python virtual environment
 myenv/
 venv/

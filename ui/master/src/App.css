@@ -1,3 +1,75 @@
+.auth-shell {
+  min-height: 100vh;
+  padding: 24px;
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at top left, rgba(20, 71, 230, 0.18), transparent 30%),
+    radial-gradient(circle at bottom right, rgba(11, 163, 96, 0.18), transparent 26%),
+    linear-gradient(135deg, #f7f9fc 0%, #eef4ff 50%, #fefbf2 100%);
+}
+
+.auth-row {
+  min-height: calc(100vh - 48px);
+}
+
+.auth-glow {
+  position: absolute;
+  width: 320px;
+  height: 320px;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+.auth-glow-left {
+  top: -120px;
+  left: -80px;
+  background: rgba(20, 71, 230, 0.22);
+}
+
+.auth-glow-right {
+  right: -120px;
+  bottom: -120px;
+  background: rgba(11, 163, 96, 0.22);
+}
+
+.auth-card {
+  position: relative;
+  z-index: 1;
+  border-radius: 28px;
+  box-shadow: 0 20px 60px rgba(34, 62, 110, 0.14);
+}
+
+.auth-badge {
+  display: inline-block;
+  margin-bottom: 12px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: #dbe7ff;
+  color: #1447e6;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.auth-title.ant-typography {
+  margin-top: 8px;
+  margin-bottom: 8px;
+  color: #13203b;
+}
+
+.auth-subtitle.ant-typography {
+  margin-bottom: 24px;
+  color: #53627c;
+}
+
+.auth-form-action {
+  margin-bottom: 0;
+  margin-top: 28px;
+}
+
 .page-shell {
   min-height: 100vh;
   padding: 48px 20px 72px;
@@ -90,6 +162,14 @@
 }
 
 @media (max-width: 768px) {
+  .auth-shell {
+    padding: 16px;
+  }
+
+  .auth-row {
+    min-height: calc(100vh - 32px);
+  }
+
   .page-shell {
     padding: 24px 12px 40px;
   }
