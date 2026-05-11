@@ -1,33 +1,37 @@
-import type { FormProps } from "antd";
 import { Button, Form, Input } from "antd";
+import { useEffect } from "react";
 
-type LoginFieldType = {
-  username?: string;
-  password?: string;
+import type { LoginFormValues } from "../../types/user";
+
+type LoginComponentProps = {
+  initialUsername?: string;
+  loading?: boolean;
+  onSubmit: (values: LoginFormValues) => Promise<void> | void;
 };
 
-const onFinish: FormProps<LoginFieldType>["onFinish"] = (values) => {
-  console.log("Login success:", values);
-};
+function LoginComponent({
+  initialUsername,
+  loading = false,
+  onSubmit,
+}: LoginComponentProps) {
+  const [form] = Form.useForm<LoginFormValues>();
 
-const onFinishFailed: FormProps<LoginFieldType>["onFinishFailed"] = (
-  errorInfo,
-) => {
-  console.log("Login failed:", errorInfo);
-};
+  useEffect(() => {
+    form.setFieldsValue({
+      username: initialUsername ?? "",
+    });
+  }, [form, initialUsername]);
 
-const LoginComponent: React.FC = () => {
   return (
     <Form
+      form={form}
       name="login"
       layout="vertical"
-      initialValues={{ remember: true }}
-      onFinish={onFinish}
-      onFinishFailed={onFinishFailed}
+      onFinish={onSubmit}
       autoComplete="off"
       size="large"
     >
-      <Form.Item<LoginFieldType>
+      <Form.Item<LoginFormValues>
         label="Username"
         name="username"
         rules={[{ required: true, message: "Please input your username!" }]}
@@ -35,7 +39,7 @@ const LoginComponent: React.FC = () => {
         <Input placeholder="Enter your username" />
       </Form.Item>
 
-      <Form.Item<LoginFieldType>
+      <Form.Item<LoginFormValues>
         label="Password"
         name="password"
         rules={[{ required: true, message: "Please input your password!" }]}
@@ -44,7 +48,7 @@ const LoginComponent: React.FC = () => {
       </Form.Item>
 
       <Form.Item className="auth-form-action">
-        <Button block type="primary" htmlType="submit">
+        <Button block type="primary" htmlType="submit" loading={loading}>
           Login
         </Button>
       </Form.Item>

@@ -1,23 +1,85 @@
-import { Card, Col, Row, Tabs, Typography } from "antd";
+import { App as AntApp, Card, Col, Row, Tabs, Typography } from "antd";
+import { useState } from "react";
 
+import { createUser, loginUser } from "./api/users";
 import LoginComponent from "./components/auth/LoginComponent";
 import SignUpComponent from "./components/auth/SignUpComponent";
+import ProductsPage from "./pages/ProductsPage";
 import "./App.css";
-
-const tabItems = [
-  {
-    key: "login",
-    label: "Login",
-    children: <LoginComponent />,
-  },
-  {
-    key: "signup",
-    label: "Sign Up",
-    children: <SignUpComponent />,
-  },
-];
+import type { LoginFormValues, SignUpFormValues } from "./types/user";
 
 function App() {
+  const { message } = AntApp.useApp();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [activeTab, setActiveTab] = useState("login");
+  const [loginLoading, setLoginLoading] = useState(false);
+  const [signUpLoading, setSignUpLoading] = useState(false);
+  const [initialUsername, setInitialUsername] = useState("");
+
+  async function handleLogin(values: LoginFormValues) {
+    setLoginLoading(true);
+
+    try {
+      const response = await loginUser(values);
+      message.success(response.message);
+      setIsLoggedIn(true);
+    } catch (error) {
+      const errorMessage =
+        error instanceof Error ? error.message : "Could not login";
+      message.error(errorMessage);
+    } finally {
+      setLoginLoading(false);
+    }
+  }
+
+  async function handleSignUp(values: SignUpFormValues) {
+    setSignUpLoading(true);
+
+    try {
+      const response = await createUser({
+        full_name: values.fullName,
+        email: values.email,
+        username: values.username,
+        password: values.password,
+      });
+
+      message.success(response.message);
+      setInitialUsername(response.user.username);
+      setActiveTab("login");
+    } catch (error) {
+      const errorMessage =
+        error instanceof Error ? error.message : "Could not create account";
+      message.error(errorMessage);
+    } finally {
+      setSignUpLoading(false);
+    }
+  }
+
+  const tabItems = [
+    {
+      key: "login",
+      label: "Login",
+      children: (
+        <LoginComponent
+          initialUsername={initialUsername}
+          loading={loginLoading}
+          onSubmit={handleLogin}
+        />
+      ),
+    },
+    {
+      key: "signup",
+      label: "Sign Up",
+      children: (
+        <SignUpComponent loading={signUpLoading} onSubmit={handleSignUp} />
+      ),
+    },
+  ];
+
+  if (isLoggedIn) {
+    return <ProductsPage />;
+  }
+
   return (
     <div className="auth-shell">
       <div className="auth-glow auth-glow-left" />
@@ -35,7 +97,12 @@ function App() {
               the sign up form.
             </Typography.Paragraph>
 
-            <Tabs defaultActiveKey="login" centered items={tabItems} />
+            <Tabs
+              activeKey={activeTab}
+              centered
+              items={tabItems}
+              onChange={setActiveTab}
+            />
           </Card>
         </Col>
       </Row>

@@ -1,35 +1,25 @@
-import type { FormProps } from "antd";
 import { Button, Form, Input } from "antd";
 
-type SignUpFieldType = {
-  fullName?: string;
-  email?: string;
-  username?: string;
-  password?: string;
-  confirmPassword?: string;
+import type { SignUpFormValues } from "../../types/user";
+
+type SignUpComponentProps = {
+  loading?: boolean;
+  onSubmit: (values: SignUpFormValues) => Promise<void> | void;
 };
 
-const onFinish: FormProps<SignUpFieldType>["onFinish"] = (values) => {
-  console.log("Sign up success:", values);
-};
-
-const onFinishFailed: FormProps<SignUpFieldType>["onFinishFailed"] = (
-  errorInfo,
-) => {
-  console.log("Sign up failed:", errorInfo);
-};
-
-const SignUpComponent: React.FC = () => {
+function SignUpComponent({
+  loading = false,
+  onSubmit,
+}: SignUpComponentProps) {
   return (
     <Form
       name="signup"
       layout="vertical"
-      onFinish={onFinish}
-      onFinishFailed={onFinishFailed}
+      onFinish={onSubmit}
       autoComplete="off"
       size="large"
     >
-      <Form.Item<SignUpFieldType>
+      <Form.Item<SignUpFormValues>
         label="Full Name"
         name="fullName"
         rules={[{ required: true, message: "Please input your full name!" }]}
@@ -37,7 +27,7 @@ const SignUpComponent: React.FC = () => {
         <Input placeholder="Enter your full name" />
       </Form.Item>
 
-      <Form.Item<SignUpFieldType>
+      <Form.Item<SignUpFormValues>
         label="Email"
         name="email"
         rules={[
@@ -48,7 +38,7 @@ const SignUpComponent: React.FC = () => {
         <Input placeholder="Enter your email" />
       </Form.Item>
 
-      <Form.Item<SignUpFieldType>
+      <Form.Item<SignUpFormValues>
         label="Username"
         name="username"
         rules={[{ required: true, message: "Please input your username!" }]}
@@ -56,7 +46,7 @@ const SignUpComponent: React.FC = () => {
         <Input placeholder="Choose a username" />
       </Form.Item>
 
-      <Form.Item<SignUpFieldType>
+      <Form.Item<SignUpFormValues>
         label="Password"
         name="password"
         rules={[{ required: true, message: "Please input your password!" }]}
@@ -65,7 +55,7 @@ const SignUpComponent: React.FC = () => {
         <Input.Password placeholder="Create a password" />
       </Form.Item>
 
-      <Form.Item<SignUpFieldType>
+      <Form.Item<SignUpFormValues>
         label="Confirm Password"
         name="confirmPassword"
         dependencies={["password"]}
@@ -87,7 +77,7 @@ const SignUpComponent: React.FC = () => {
       </Form.Item>
 
       <Form.Item className="auth-form-action">
-        <Button block type="primary" htmlType="submit">
+        <Button block type="primary" htmlType="submit" loading={loading}>
           Sign Up
         </Button>
       </Form.Item>

@@ -1,6 +1,6 @@
 # Python FastAPI Learning
 
-This is a simple full stack products project built for learning.
+This is a simple full stack products and users project built for learning.
 
 The backend is created with `FastAPI` and `SQLAlchemy`.
 The frontend is created with `React`, `TypeScript`, and `Ant Design`.
@@ -17,7 +17,7 @@ This project is made to practice:
 
 ## What This Project Does
 
-This app manages products.
+This app manages products and users.
 
 You can:
 - create a product
@@ -25,12 +25,18 @@ You can:
 - get product by id
 - update a product
 - delete a product
+- create a user
+- view all users
+- get user by id
+- update a user
+- delete a user
 
 ## Backend
 
 The backend includes:
 - FastAPI application
 - product routes
+- user routes
 - controller, service, repository structure
 - MySQL database connection
 - request validation using Pydantic
@@ -39,6 +45,7 @@ Main backend folders/files:
 - `main.py`
 - `core/`
 - `products/`
+- `users/`
 
 ## Frontend
 
@@ -61,6 +68,13 @@ Available product APIs:
 - `GET /products/{product_id}`
 - `PUT /products/{product_id}`
 - `DELETE /products/{product_id}`
+
+Available user APIs:
+- `POST /users/`
+- `GET /users/`
+- `GET /users/{user_id}`
+- `PUT /users/{user_id}`
+- `DELETE /users/{user_id}`
 
 ## How To Run
 

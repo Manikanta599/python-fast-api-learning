@@ -5,9 +5,10 @@ from sqlalchemy import text
 from core.database import Base, engine
 from products.entity import Product
 from products.router import api_router
+from users.entity import User
 
 
-app = FastAPI(title="Products API")
+app = FastAPI(title="Products and Users API")
 
 app.add_middleware(
     CORSMiddleware,
@@ -35,7 +36,7 @@ def startup_database_check():
 
 @app.get("/")
 def read_root():
-    return {"message": "Products API is running"}
+    return {"message": "Products and Users API is running"}
 
 
 app.include_router(api_router)
